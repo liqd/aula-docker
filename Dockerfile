@@ -34,7 +34,7 @@ RUN cabal update && \
     cd /liqd/thentos/ && \
     ./misc/thentos-install.hs -p && \
     cd /liqd/aula/ && \
-    cabal sandbox init --sandbox=/liqd/thentos/.cabal-sandbox
+    cabal sandbox init --sandbox=/liqd/thentos/.cabal-sandbox && \
     cabal install --enable-tests --only-dependencies
 
 # Directory for aula source
