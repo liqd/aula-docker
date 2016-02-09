@@ -1,0 +1,21 @@
+sudo: required
+services:
+- docker
+language: c
+env:
+  global:
+  - secure: "LET3gEekjIM1mY83GNiZ6rkwNxRY10RMTsDXDT/TfaqmyR+l4ZWVPKry5SsyTavcc4QREnYfGseh30H/mAVgF4PqnhsRlT3tWmcTDl5Xeb8jKa/CJe7frCgS3Tv26YLFXC0Q/DZsWY2oba8X6W+COgQqm4r8xDW4NGiZr8OzPmVlbaftTXiFy4x0BH14k336J29uaYHTUmy6lHRn5UxTdkXkfaC2vkBOKbUx5oMCRUKMtjXBRJT5AfOEEiiXqFGzJb3HTTBfm1iz3260ePWaRMeEhZpNBqNH9cR8KrKW8WVDvBfrn0OGbLyXk25I/hLKI8WWh06TQ3/0Tko7n3yIpy5qFbJGiiJvXVIsu7JNsrfBcNsviMQISKgyYDvAQPNqWKpHAlzqiUBYoGDh3FbXno3RyeGptIiDu4YiUUhbWyIupCm1C3FTMy7qQ9ZARkclllb3VCSubF4KqhTyYeCdOX45A3x5lhwQflsanxtCxDb2R+UygxExRE6OP8+MfPMi/ezXsQn6MlUre79h0dV8NwzpTspiQy3p9R9NE919gZX+wJkEqXYcQczha+hbC/o12ipVokWb1EPLoymprLuHrPGxef/KuD30REmjOZB+S451qeixorSgzGo5H+DxF68wg197haSr6SY72Qso08CVCwNkU74uh3lTQD54iJhBEq0=" # DOCKER_EMAIL
+  - secure: "SQdS+DzKdGX7029tPk5gYEv3Lc/abvplZ694rQwQk8uTnwDnmRfLW9M9gI6u8S1fo1ku+5yKhZUZL5QAVBODw7ef8wOPUeEZGDTutuBvlv6LAEw4gGxp2KoNUwH9ADEpfHG/p1WAhq6LJe0/G+H6xdTlP8Mra5wwywvt5xt5P0/2pX9/dxZswp2sql/6/ubkveHABS6zga77A/749c1Y7l5d1p/tNGpNUvgtlEAf5VbH71POwvkzrlTaJysh77Wab5Uj0IWnACnjlUmbUAc48CMxOl4aTNeGU+7Dl+IeESlX2bQhnI4ozyM6mbq7QN1MWUR95DigEHlSzv+jg1azHe32PCVdgG5Uzyo7OAiEm8n/8O7ztlRNthgZpeOLGobJDa21NDNctvzSGwzvGthIiBq3uPngQebkt/rgTN5Cz/9uT6+cPBOq+1zqzCV+WAhftyUJ7Ronm/tmezG5LsS11L/1rs9nLguENq1mYCIhs3Y2c4I4lWzV3Ja0n5pNT+TTR9XBFnhboN29ZvuJWtYcR92UotFYiPNi1/x5sDfvi2OXjw00HKrfpGIj7IJO7a6d1fCr3u8da0cRLU+koRRSlEFUBZaf3zzenKrHigxp8P4sx9vch9ea0zJ5evssMlkK/vOX7cRh+0Sp3MtmOQvnY6aISdn5ZwlyJQ+vMPfJlNc=" # DOCKER_USERNAME
+  - secure: "tCegPM99bvrF5jEx0g8yUbHB/lnFgGVHK6IhScpC98fjJfD4ju8DMsuHHmkdaFig4/I10GDc5Y/qf54Ay7kVZKaFhKUbPSBIvyzAkt9krFFRtbfm7UjEUz2t4Y9BX9kK9hINo7RmqN4HlAXSt6zgfUe23AyZKeb8fUitOcvuNyuNqqD+pS9whZrkvpVEBrBIg23BGHe2fkegKJf/FtoOY5L1iv+DT++QSP/4Ivp0aUTnRSZwMIFsip6ylhpewspk3ZdaGpv7ByVPG1O3VyYUx9dureiOho1t1bWDzvE4dgP1dQzMjDyC63asCrlUzENe0a+5xE2uawHqxtXUufDAv4oHQkFjituPlpVS2b0Ce+pYJ8Clfor1Gj6P07qG/K3LwUX/SAcp88wBTvIsQhQT9ix+wWSbRPplsTE1LngPpHq2xLjktIWCQbEufulDjpwYmfm1zS1Z3+FmNaizAakAvqqWC0w3gPH08g4Ec+Lt83NUJ5dJoBdAUL44FJytQBU27+H3VhQlmeIGlnc6azIitUdwdCo4qYfZVCVbPQg3C3dptJKImRD/LHpRSqY7P8Re5XiD84nxz/5fz+3T7GHD3mTT/5u3DGcV7ImUjuP/AqGGJrQ0JLTkTjMd6e9xRIJ/qefdK4FqJLPMMexvlr3AyALnMf13Y7vUvBU1vG7gbwk=" # DOCKER_PASS
+  - COMMIT=${TRAVIS_COMMIT::8}
+script:
+  - echo "Building aula docker image..."
+after_success:
+  - git submodule init
+  - git submodule update
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASS
+  - export REPO=liquiddemocracy/aula
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -f Dockerfile -t $REPO:$COMMIT .
+  - docker tag $REPO:$COMMIT $REPO:$TAG
+  - docker push $REPO
