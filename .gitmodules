@@ -1,0 +1,6 @@
+[submodule "aula"]
+	path = aula
+	url = https://github.com/liqd/aula.git
+[submodule "thentos"]
+	path = thentos
+	url = https://github.com/liqd/thentos.git
