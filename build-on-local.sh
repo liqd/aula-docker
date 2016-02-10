@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t="liquiddemocracy/aula" .
+docker build -t="fisx/aula" .
