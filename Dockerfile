@@ -26,7 +26,8 @@ ENV PATH /opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/
 
 # Create development dirs
 RUN mkdir /liqd/ && \
-    mkdir /root/aula
+    mkdir /root/aula && \
+    mkdir /root/thentos
 
 # Copy cabal file and install dependencies
 COPY . /liqd/
@@ -37,5 +38,9 @@ RUN cabal update && \
     cabal sandbox init --sandbox=/liqd/thentos/.cabal-sandbox && \
     cabal install --enable-tests --only-dependencies
 
-# Directory for aula source
+# Directory for aula, thentos sources
 VOLUME "/root/aula"
+VOLUME "/root/thentos"
+
+# Offer aula-server listener port to host
+EXPOSE 8080
