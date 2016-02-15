@@ -4,3 +4,6 @@
 [submodule "thentos"]
 	path = thentos
 	url = https://github.com/liqd/thentos.git
+[submodule "sensei"]
+	path = sensei
+	url = https://github.com/hspec/sensei

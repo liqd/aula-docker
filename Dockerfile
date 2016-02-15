@@ -32,13 +32,17 @@ RUN mkdir /liqd/ && \
     mkdir /root/thentos
 
 # Copy cabal file and install dependencies
+ENV AULA_SANDBOX=/liqd/thentos/.cabal-sandbox
 COPY . /liqd/
 RUN cabal update && \
     cd /liqd/thentos/ && \
     ./misc/thentos-install.hs -p && \
     cd /liqd/aula/ && \
-    cabal sandbox init --sandbox=/liqd/thentos/.cabal-sandbox && \
-    cabal install --enable-tests --only-dependencies
+    cabal sandbox init --sandbox=$AULA_SANDBOX && \
+    cabal install --enable-tests --only-dependencies && \
+    cd /liqd/sensei/ && \
+    cabal sandbox init --sandbox=$AULA_SANDBOX && \
+    cabal install
 
 # Directory for aula, thentos sources
 VOLUME "/root/aula"
