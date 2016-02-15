@@ -9,10 +9,7 @@ env:
   - secure: "yg413Si+i/fvAzeQkyJUk+A7shGTfLddaeD3dpqikYCXfGaSBh1rXkVQm0yDHCsADdLlsnh+KnwxQxlw4NAJFLdI5BjoA0Gp6y4WKnf8I63wvV8mqsowqlzCwemCAYHjE10MoAPpw92lkHkeePG07AsUwRBLJ6pLGVX7zJbl7svqWEhAFaabDjwHERAkCPGBYgm1ngPNeFImXoWBGH80jIbQj9ywIPl/X36LnxoFJPldR14HyzC35rlaR18Mf4cK9ztHUQSwBOJNER+VmeErf6oqG9QgPoSEhv7+uQvaS35Vxrg1haDmHcVcQ9smfeRhw+hWg1D1k+kFW85XVyGRcUBo31O0c+1H7LCXv7HWiL7ehfI76v5mRLIP4/Xe40FmJeJH3xeuB5gfbWQIKjMCT6anR++++ipSY7r6XNLrI7QzMQiePjtVRzfAPZI7JUDvEAa9bDwTGgOZAib7uvVKEnGbuY0Bpj7FK89fC3yQ2ZcC8ISr+A+yuJoTptUZvaI8whLlv1oP0ABy9GBkztr6ylDl8y+hW44hRomQZSJrrVuFC4mzvFGtVzHrb//Zu8oMBWLBmPr9/bpffU8/Ha4BR1evRLcYF+V/h69+Qc+orJcYp4RBM0w2vdHhQ1bnMrCNeS1Z0YQJhST5AWOc06tuo7pHmndNqAR0+v1CuXymibI=" # DOCKER_PASS
   - COMMIT=${TRAVIS_COMMIT::8}
 script:
-  - echo "Building aula docker image..."
-after_success:
-  - git submodule init
-  - git submodule update
+  - git submodule update --init --recursive
   - docker login -e $DOCKER_EMAIL -u $DOCKER_USERNAME -p $DOCKER_PASS
   - export REPO=fisx/aula
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
