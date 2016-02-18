@@ -35,6 +35,7 @@ RUN mkdir /liqd/ && \
 ENV AULA_SANDBOX=/liqd/thentos/.cabal-sandbox
 COPY . /liqd/
 RUN cabal update && \
+    cabal install hlint --global && \
     cd /liqd/thentos/ && \
     ./misc/thentos-install.hs -p && \
     cd /liqd/aula/ && \
