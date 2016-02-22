@@ -43,7 +43,9 @@ RUN cabal update && \
     cabal install --enable-tests --only-dependencies && \
     cd /liqd/sensei/ && \
     cabal sandbox init --sandbox=$AULA_SANDBOX && \
-    cabal install
+    cabal install && \
+    cd / && \
+    cabal install hpack-0.8.0 --global
 
 # Directory for aula, thentos sources
 VOLUME "/root/aula"
