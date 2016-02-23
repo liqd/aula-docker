@@ -23,6 +23,7 @@ RUN apt-get update && \
         g++ \
         libpq-dev \
         tidy \
+        libcurl4-gnutls-dev \
         make
 ENV PATH /opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.3/bin:$PATH
 
@@ -45,7 +46,7 @@ RUN cabal update && \
     cabal sandbox init --sandbox=$AULA_SANDBOX && \
     cabal install && \
     cd / && \
-    cabal install hpack-0.8.0 --global
+    cabal install hpc-coveralls hlint hpack-0.8.0 --global --reorder-goals
 
 # Directory for aula, thentos sources
 VOLUME "/root/aula"
