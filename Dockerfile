@@ -31,7 +31,8 @@ ENV PATH /opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/
 RUN mkdir /liqd/ && \
     mkdir /root/aula && \
     mkdir /root/thentos && \
-    mkdir /root/html-templates
+    mkdir /root/html-templates && \
+    echo 'export AULA_SAMPLES=/root/html-templates >> /root/.bashrc'
 
 # Copy cabal file and install dependencies
 ENV AULA_SANDBOX=/liqd/thentos/.cabal-sandbox
