@@ -24,7 +24,7 @@ RUN apt-get update && \
         libpq-dev \
         tidy \
         libcurl4-gnutls-dev \
-        make
+        make vim
 ENV PATH /opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.3/bin:$PATH
 
 # Create development dirs
