@@ -30,13 +30,13 @@ ENV PATH /opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/
 # Create development dirs
 RUN mkdir /liqd/ && \
     mkdir /root/aula && \
-    mkdir /root/thentos
+    mkdir /root/thentos && \
+    mkdir /root/html-templates
 
 # Copy cabal file and install dependencies
 ENV AULA_SANDBOX=/liqd/thentos/.cabal-sandbox
 COPY . /liqd/
 RUN cabal update && \
-    cabal install hlint --global && \
     cd /liqd/thentos/ && \
     ./misc/thentos-install.hs -p && \
     cd /liqd/aula/ && \
@@ -51,6 +51,9 @@ RUN cabal update && \
 # Directory for aula, thentos sources
 VOLUME "/root/aula"
 VOLUME "/root/thentos"
+
+# Directory for the html templates
+VOLUME "/root/html-templates"
 
 # Offer aula-server listener port to host
 EXPOSE 8080
