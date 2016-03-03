@@ -33,9 +33,10 @@ RUN mkdir -p /liqd/stack /liqd/html-templates && \
 COPY . /liqd/
 WORKDIR /liqd/aula
 #    sed -i -e 's+^packages:+packages:\n- ../sensei+' stack.yaml && \
-RUN stack setup && \
-    stack install --work-dir /liqd/stack --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
-#    stack install --work-dir /liqd/stack --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
+RUN ln -s /liqd/stack .stack-work &&
+    stack setup && \
+    stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
+#    stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
 
 # Build thentos core
-RUN stack install --work-dir /liqd/stack --fast --test --coverage --no-run-tests thentos-core
+RUN stack install --fast --test --coverage --no-run-tests thentos-core
