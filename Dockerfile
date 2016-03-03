@@ -27,28 +27,16 @@ ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Create development dirs
 RUN mkdir /liqd/ && \
-    mkdir /root/aula && \
-    mkdir /root/thentos && \
-    mkdir /root/html-templates && \
-    echo 'export AULA_SAMPLES=/root/html-templates >> /root/.bashrc'
+    mkdir /liqd/html-templates && \
+    echo 'export AULA_SAMPLES=/liqd/html-templates >> /root/.bashrc'
 
 # Copy cabal file and install dependencies
 COPY . /liqd/
 WORKDIR /liqd/aula
 #    sed -i -e 's+^packages:+packages:\n- ../sensei+' stack.yaml && \
 RUN stack setup && \
-    stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
-#    stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
+    stack install --work-dir /liqd/stack --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
+#    stack install --work-dir /liqd/stack --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
 
 # Build thentos core
-RUN stack install --fast --test --coverage --no-run-tests thentos-core
-
-# Directory for aula, thentos sources
-VOLUME "/root/aula"
-VOLUME "/root/thentos"
-
-# Directory for the html templates
-VOLUME "/root/html-templates"
-
-# Offer aula-server listener port to host
-EXPOSE 8080
+RUN stack install --work-dir /liqd/stack --fast --test --coverage --no-run-tests thentos-core
