@@ -34,11 +34,14 @@ RUN mkdir /liqd/ && \
 
 # Copy cabal file and install dependencies
 COPY . /liqd/
-RUN cd /liqd/aula/ && \
-    sed -i -e 's+packages:+packages:\n- ../sensei+' stack.yaml && \
-    stack setup && \
-    stack install --fast --test --no-run-tests --only-dependencies && \
-    stack install --fast --test --no-run-tests thentos-core sensei hpc-coveralls hlint hpack-0.8.0
+WORKDIR /liqd/aula
+#    sed -i -e 's+^packages:+packages:\n- ../sensei+' stack.yaml && \
+RUN stack setup && \
+    stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
+#    stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
+
+# Build thentos core
+RUN stack install --fast --test --coverage --no-run-tests thentos-core
 
 # Directory for aula, thentos sources
 VOLUME "/root/aula"
