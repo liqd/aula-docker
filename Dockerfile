@@ -26,8 +26,7 @@ RUN apt-get update && \
 ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Create development dirs
-RUN mkdir /liqd/ && \
-    mkdir /liqd/html-templates && \
+RUN mkdir -p /liqd/stack /liqd/html-templates && \
     echo 'export AULA_SAMPLES=/liqd/html-templates >> /root/.bashrc'
 
 # Copy cabal file and install dependencies
