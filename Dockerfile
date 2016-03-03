@@ -11,13 +11,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
     add-apt-repository -y ppa:hvr/ghc && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 575159689BEFB442 && \
+    echo 'deb http://download.fpcomplete.com/ubuntu trusty main' >/etc/apt/sources.list.d/fpco.list && \
     apt-get update && \
     apt-get install -y \
-        cabal-install-1.22 \
-        ghc-7.10.3 \
-        cpphs \
-        happy-1.19.3 \
-        alex-3.1.4 \
+        stack \
         git \
         zlib1g-dev \
         g++ \
@@ -25,7 +23,6 @@ RUN apt-get update && \
         tidy \
         libcurl4-gnutls-dev \
         make vim tmux
-ENV PATH /liqd/thentos/.cabal-sandbox/bin:/opt/ghc/7.10.3/bin:/opt/cabal/1.22/bin:/opt/alex/3.1.4/bin:/opt/happy/1.19.3/bin:$PATH
 ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Create development dirs
@@ -36,19 +33,13 @@ RUN mkdir /liqd/ && \
     echo 'export AULA_SAMPLES=/root/html-templates >> /root/.bashrc'
 
 # Copy cabal file and install dependencies
-ENV AULA_SANDBOX=/liqd/thentos/.cabal-sandbox
 COPY . /liqd/
 RUN cabal update && \
-    cd /liqd/thentos/ && \
-    ./misc/thentos-install.hs -p && \
     cd /liqd/aula/ && \
-    cabal sandbox init --sandbox=$AULA_SANDBOX && \
-    cabal install --enable-tests --only-dependencies && \
-    cd /liqd/sensei/ && \
-    cabal sandbox init --sandbox=$AULA_SANDBOX && \
-    cabal install && \
-    cd / && \
-    cabal install hpc-coveralls hlint hpack-0.8.0 --global --reorder-goals
+    sed -i -e 's+packages:+packages:\n- ../sensei+' stack.yaml &&
+    stack setup && \
+    stack install --fast --test --no-run-tests --only-dependencies && \
+    stack install --fast --test --no-run-tests thentos-core sensei hpc-coveralls hlint hpack-0.8.0
 
 # Directory for aula, thentos sources
 VOLUME "/root/aula"
