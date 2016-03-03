@@ -36,7 +36,7 @@ RUN mkdir /liqd/ && \
 COPY . /liqd/
 RUN cabal update && \
     cd /liqd/aula/ && \
-    sed -i -e 's+packages:+packages:\n- ../sensei+' stack.yaml &&
+    sed -i -e 's+packages:+packages:\n- ../sensei+' stack.yaml && \
     stack setup && \
     stack install --fast --test --no-run-tests --only-dependencies && \
     stack install --fast --test --no-run-tests thentos-core sensei hpc-coveralls hlint hpack-0.8.0
