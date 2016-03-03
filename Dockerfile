@@ -34,8 +34,7 @@ RUN mkdir /liqd/ && \
 
 # Copy cabal file and install dependencies
 COPY . /liqd/
-RUN cabal update && \
-    cd /liqd/aula/ && \
+RUN cd /liqd/aula/ && \
     sed -i -e 's+packages:+packages:\n- ../sensei+' stack.yaml && \
     stack setup && \
     stack install --fast --test --no-run-tests --only-dependencies && \
