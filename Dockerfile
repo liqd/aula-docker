@@ -27,7 +27,7 @@ ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Create development dirs
 RUN mkdir -p /liqd/stack /liqd/html-templates && \
-    echo 'export AULA_SAMPLES=/liqd/html-templates >> /root/.bashrc'
+    echo 'export AULA_SAMPLES=/liqd/html-templates' >> /root/.bashrc
 
 # Copy cabal file and install dependencies
 COPY . /liqd/
@@ -38,7 +38,7 @@ RUN ln -s /liqd/stack .stack-work && \
     stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
 
 # Install tooling
-RUN stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
+RUN stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint
 
 # Build thentos core
 RUN stack install --fast --test --coverage --no-run-tests thentos-core
