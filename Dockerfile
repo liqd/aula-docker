@@ -32,11 +32,13 @@ RUN mkdir -p /liqd/stack /liqd/html-templates && \
 # Copy cabal file and install dependencies
 COPY . /liqd/
 WORKDIR /liqd/aula
-#    sed -i -e 's+^packages:+packages:\n- ../sensei+' stack.yaml && \
 RUN ln -s /liqd/stack .stack-work && \
+    sed -i -e 's+^packages:+packages:\n- ../sensei+' stack.yaml && \
     stack setup && \
     stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
-#    stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
+
+# Install tooling
+RUN stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint hpack-0.8.0
 
 # Build thentos core
 RUN stack install --fast --test --coverage --no-run-tests thentos-core
