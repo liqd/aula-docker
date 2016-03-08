@@ -6,6 +6,8 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
+ENV PATH=/root/.local/bin/:$PATH
+ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Download GHC and cabal
 RUN apt-get update && \
@@ -23,7 +25,6 @@ RUN apt-get update && \
         tidy \
         libcurl4-gnutls-dev \
         make vim tmux
-ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Create development dirs
 RUN mkdir -p /liqd/stack /liqd/html-templates && \
@@ -39,6 +40,3 @@ RUN ln -s /liqd/stack .stack-work && \
 
 # Install tooling
 RUN stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint
-
-# Build thentos core
-RUN stack install --fast --test --coverage --no-run-tests thentos-core
