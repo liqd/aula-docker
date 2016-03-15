@@ -1,1 +1,2 @@
-[![Build Status](https://travis-ci.org/liqd/aula-docker.svg?branch=master)](https://travis-ci.org/liqd/aula-docker)
+[![Docker Repository on Quay](https://quay.io/repository/liqd/aula/status "Docker Repository on 
+Quay")](https://quay.io/repository/liqd/aula)
