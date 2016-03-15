@@ -6,7 +6,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
-ENV PATH=/root/.local/bin/:$PATH
+ENV PATH /root/.local/bin/:$PATH
 ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
 
 # Download GHC and cabal
