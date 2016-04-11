@@ -8,6 +8,8 @@ ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH /root/.local/bin/:$PATH
 ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
+ENV AULA_ROOT_PATH /liqd/aula
+ENV AULA_SAMPLES /liqd/html-templates
 
 # Download GHC and cabal
 RUN apt-get update && \
@@ -17,20 +19,15 @@ RUN apt-get update && \
     echo 'deb http://download.fpcomplete.com/ubuntu trusty main' >/etc/apt/sources.list.d/fpco.list && \
     apt-get update && \
     apt-get install -y \
-        stack \
-        git \
-        zlib1g-dev \
-        g++ \
-        libpq-dev \
-        tidy \
-        libcurl4-gnutls-dev \
-        make vim tmux
+        zlib1g-dev libpq-dev libcurl4-gnutls-dev \
+        sendmail tmux \
+        stack git make vim g++ tidy
 
 # Create development dirs
-RUN mkdir -p /liqd/stack /liqd/html-templates && \
-    echo 'export AULA_SAMPLES=/liqd/html-templates' >> /root/.bashrc
+RUN mkdir -p /liqd/stack /liqd/html-templates
 
 # Copy cabal file and install dependencies
+COPY aula.yaml /liqd/aula/aula.yaml
 COPY . /liqd/
 WORKDIR /liqd/aula
 RUN ln -s /liqd/stack .stack-work && \
