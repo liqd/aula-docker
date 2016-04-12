@@ -21,7 +21,7 @@ RUN apt-get update && \
     apt-get install -y \
         zlib1g-dev libpq-dev libcurl4-gnutls-dev \
         sendmail tmux \
-        stack git make vim g++ tidy
+        stack git make vim g++ tidy curl
 
 # Create development dirs
 RUN mkdir -p /liqd/stack /liqd/html-templates
