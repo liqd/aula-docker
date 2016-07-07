@@ -7,7 +7,7 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 ENV PATH /root/.local/bin/:$PATH
-ENV THENTOS_ROOT_PATH /liqd/thentos/thentos-core
+ENV THENTOS_ROOT_PATH /liqd/thentos
 ENV AULA_ROOT_PATH /liqd/aula
 ENV AULA_SAMPLES /liqd/html-templates
 
@@ -33,7 +33,7 @@ WORKDIR /liqd/aula
 RUN ln -s /liqd/stack .stack-work && \
     sed -i -e 's+^packages:+packages:\n- ../sensei+' stack.yaml && \
     stack setup && \
-    stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-core aula
+    stack install --fast --test --coverage --no-run-tests --only-dependencies thentos-frontend-session aula
 
 # Install tooling
 RUN stack install --fast --test --coverage --no-run-tests sensei hpc-coveralls hlint
