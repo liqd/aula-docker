@@ -1,4 +1,5 @@
 _cfgCsrfSecret: 1daf3741e8a9ae1b39fd7e9cc7bab44ee31b6c3119ab5c3b05ac33cbb543289c
+_delegateLikes: true
 _exposedUrl: https://loclhost:8080
 _smtpConfig:
   _senderName: Aula Notifications
@@ -9,6 +10,11 @@ _smtpConfig:
 _htmlStatic: ./static
 _listenerPort: 8080
 _listenerInterface: '0.0.0.0'
-_dbPath: ./state/AulaData
-_logLevel: false
-_persistenceImpl: AcidStateInMem
+_logging:
+  _eventLogPath: ./aulaEventLog.json
+  _logLevel: DEBUG
+_persistConfig:
+  _dbPath: ./state/AulaData
+  _persistenceImpl: AcidStateInMem
+  _snapshotInterval: 47m
+_timeoutCheckInterval: 2m
