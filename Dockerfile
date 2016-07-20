@@ -19,7 +19,7 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \
         zlib1g-dev libpq-dev libcurl4-gnutls-dev \
-        sendmail tmux \
+        sendmail tmux openjdk-7-jre chromium-chromedriver psmisc Xvfb \
         stack git make vim g++ tidy curl
 
 # Create development dirs
