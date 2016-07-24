@@ -21,7 +21,6 @@ RUN apt-get update && \
         zlib1g-dev libpq-dev libcurl4-gnutls-dev \
         sendmail tmux openjdk-7-jre psmisc Xvfb \
         chromium-chromedriver \
-        firefox firefox-dev firefox-dbg \
         stack git make vim g++ tidy curl
 
 # Create development dirs
