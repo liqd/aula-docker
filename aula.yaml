@@ -18,3 +18,4 @@ _persistConfig:
   _persistenceImpl: AcidStateInMem
   _snapshotInterval: 47m
 _timeoutCheckInterval: 2m
+_devMode: true

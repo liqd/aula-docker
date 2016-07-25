@@ -19,8 +19,10 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install -y \
         zlib1g-dev libpq-dev libcurl4-gnutls-dev \
-        sendmail tmux \
-        stack git make vim g++ tidy curl
+        sendmail tmux openjdk-7-jre psmisc Xvfb X11vnc \
+        chromium-chromedriver \
+        stack git make vim g++ tidy curl \
+    mkdir -p ~/.vnc && x11vnc -storepasswd gandalf ~/.vnc/passwd
 
 # Create development dirs
 RUN mkdir -p /liqd/stack /liqd/html-templates
