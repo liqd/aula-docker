@@ -21,7 +21,7 @@ RUN apt-get update && \
         zlib1g-dev libpq-dev libcurl4-gnutls-dev \
         sendmail tmux openjdk-7-jre psmisc Xvfb X11vnc \
         chromium-chromedriver \
-        stack git make vim g++ tidy curl \
+        stack git make vim g++ tidy curl && \
     mkdir -p ~/.vnc && x11vnc -storepasswd gandalf ~/.vnc/passwd
 
 # Create development dirs
