@@ -18,7 +18,7 @@ RUN apt-get update && \
     echo 'deb http://download.fpcomplete.com/ubuntu trusty main' >/etc/apt/sources.list.d/fpco.list && \
     apt-get update && \
     apt-get install -y \
-        zlib1g-dev libpq-dev libcurl4-gnutls-dev \
+        zlib1g-dev libpq-dev libcurl4-gnutls-dev libicu-dev \
         sendmail tmux openjdk-7-jre psmisc Xvfb X11vnc \
         chromium-chromedriver \
         stack git make vim g++ tidy curl && \
